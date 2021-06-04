@@ -19,14 +19,9 @@ public class Tp implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 
-        Bukkit.broadcastMessage(String.valueOf(args.length));
-        for (int i = 0; i < args.length; ++i)
-        {
-            Bukkit.broadcastMessage(args[i]);
-        }
         Player player = null;
 
-            if (sender.hasPermission("dp.modo.tp") || sender.hasPermission("dp.*") || sender.hasPermission("dp.modo.*")) {
+            if (sender.hasPermission("deadpvp.tp") || sender.hasPermission("deadpvp.*")) {
 
                 if (args.length == 1) {
                     if (!(sender instanceof Player)) {
@@ -44,32 +39,21 @@ public class Tp implements CommandExecutor {
                         }
                     }
 
-                    for (OfflinePlayer target : Bukkit.getOfflinePlayers()) {
-                        sender.sendMessage("§b" + target.getName() + " n'est pas connecté");
-                        return false;
-                    }
-                    for (Player target : Bukkit.getOnlinePlayers()) {
-
-                        if (target.getName().equalsIgnoreCase(args[0])) {
-                            p.teleport(target);
-                            p.sendMessage("Tu as été téléporté à §b" + target.getName());
-                            return false;
-                        }
-                    }
-
+                    try{
+                        p.teleport(Bukkit.getPlayer(args[0]));}
+                    catch(Exception e){
+                        p.sendMessage("Ce joueur n'existe pas ou n'est pas connecté");}
                 }
 
                 else if (args.length == 2) {
-                    for (Player teleported : Bukkit.getOnlinePlayers()) {
-                        for (Player target : Bukkit.getOnlinePlayers()) {
-                            if (teleported.getName().equalsIgnoreCase(args[0]) && target.getName().equalsIgnoreCase(args[1])) {
-                                teleported.teleport(target);
-                                sender.sendMessage("§b" + teleported.getName() + "§f a été téleporté à §b" + target.getName());
-                                teleported.sendMessage("Tu as été téléporté à §b" + target.getName());
-                                return false;
-                            }
-                        }
-                    }
+                    Player teleported = Bukkit.getPlayer(args[0]);
+                    Player target = Bukkit.getPlayer(args[1]);
+
+                    Bukkit.getPlayer(args[0]).teleport(Bukkit.getPlayer(args[1]));
+                    sender.sendMessage("§b" + teleported.getName() + "§f a été téleporté à §b" + target.getName());
+                    teleported.sendMessage("Tu as été téléporté à §b" + target.getName());
+                    return false;
+
                 }
 
                 else if (!(sender instanceof Player)) return false;
@@ -81,7 +65,6 @@ public class Tp implements CommandExecutor {
                         int x = Integer.parseInt(args[0]);
                         int y = Integer.parseInt(args[1]);
                         int z = Integer.parseInt(args[2]);
-                        Bukkit.broadcastMessage("pipi");
                         Location loc = player.getLocation();
                         loc.setX(x);
                         loc.setY(y);

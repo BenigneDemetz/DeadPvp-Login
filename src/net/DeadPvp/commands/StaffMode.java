@@ -26,7 +26,7 @@ public class StaffMode implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender.hasPermission("dp.modo.staffmode")) {
+        if (sender.hasPermission("deadpvp.staffmode")) {
             if (sender instanceof Player) {
                 Player p = (Player) sender;
                 p.sendMessage("Attends 3 secondes...");
@@ -79,7 +79,8 @@ public class StaffMode implements CommandExecutor {
                     }
                 }.runTaskLater(main, 60);
             } else sender.sendMessage("Tu dois etre joueur");
-        } else sender.sendMessage("Tu n'as pas la permission d'éxecuter cette commande.");
+        }
+        else sender.sendMessage("§cTu n'as pas la permission d'utiliser cette commande !");
 
 
         return false;

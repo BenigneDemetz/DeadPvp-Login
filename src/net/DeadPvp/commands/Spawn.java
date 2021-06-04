@@ -18,11 +18,14 @@ public class Spawn implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
+            if (p.hasPermission("deadpvp.spawn") || p.hasPermission("deadpvp.*")) {
 
-            Location spawn = p.getLocation();
-            spawn = spawn.getWorld().getSpawnLocation();
-            p.teleport(spawn);
+                Location spawn = p.getLocation();
+                spawn = spawn.getWorld().getSpawnLocation();
+                p.teleport(spawn);
 
+            }
+            else sender.sendMessage("§cTu n'as pas la permission d'utiliser cette commande !");
         } else sender.sendMessage("Tu dois etre joueur");
 
 

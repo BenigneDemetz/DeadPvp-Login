@@ -11,9 +11,10 @@ public class Heal implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            if (p.hasPermission("dp.modo.heal")) {
+            if (p.hasPermission("deadpvp.heal") || p.hasPermission("deadpvp.*")) {
                 p.setHealth(p.getMaxHealth());
                 p.setFoodLevel(20);
+                p.setSaturation(20);
             }
         } else sender.sendMessage("Tu dois etre joueur");
 

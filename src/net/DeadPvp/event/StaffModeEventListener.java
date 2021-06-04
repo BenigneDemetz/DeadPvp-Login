@@ -144,11 +144,17 @@ public class StaffModeEventListener implements Listener {
                             new BukkitRunnable() {
                                 @Override
                                 public void run() {
-                                    ItemBuilder Vanish = new ItemBuilder(Material.BLAZE_POWDER).setName("§aVanish");
-                                    p.getInventory().setItem(5, Vanish.toItemStack());
-                                    ItemBuilder VanishMsg = new ItemBuilder(Material.BLAZE_POWDER).setName("§aVanish avec message de déconnexion").
-                                            addUnsafeEnchantment(Enchantment.DURABILITY, 10);
-                                    p.getInventory().setItem(6, VanishMsg.toItemStack());
+                                    try {
+                                        if (main.staffModePlayers.contains(p)) {
+                                            ItemBuilder Vanish = new ItemBuilder(Material.BLAZE_POWDER).setName("§aVanish");
+                                            p.getInventory().setItem(5, Vanish.toItemStack());
+                                            ItemBuilder VanishMsg =
+                                                    new ItemBuilder(Material.BLAZE_POWDER).setName("§aVanish avec message de déconnexion").
+                                                            addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+                                            p.getInventory().setItem(6, VanishMsg.toItemStack());
+                                        }
+                                    }
+                                    catch (Exception ee){}
                                 }
                             }.runTaskLater(Main.getInstance(), 60);
                         } else {
@@ -158,11 +164,17 @@ public class StaffModeEventListener implements Listener {
                             new BukkitRunnable() {
                                 @Override
                                 public void run() {
-                                    ItemBuilder Vanish = new ItemBuilder(Material.BLAZE_POWDER).setName("§aUnVanish");
-                                    p.getInventory().setItem(5, Vanish.toItemStack());
-                                    ItemBuilder VanishMsg = new ItemBuilder(Material.BLAZE_POWDER).setName("§aUnVanish avec message de connexion").
-                                            addUnsafeEnchantment(Enchantment.DURABILITY, 10);
-                                    p.getInventory().setItem(6, VanishMsg.toItemStack());
+                                    try {
+                                    if (main.staffModePlayers.contains(p)) {
+                                        ItemBuilder Vanish = new ItemBuilder(Material.BLAZE_POWDER).setName("§aUnVanish");
+                                        p.getInventory().setItem(5, Vanish.toItemStack());
+                                        ItemBuilder VanishMsg =
+                                                new ItemBuilder(Material.BLAZE_POWDER).setName("§aUnVanish avec message de connexion").
+                                                        addUnsafeEnchantment(Enchantment.DURABILITY, 10);
+                                        p.getInventory().setItem(6, VanishMsg.toItemStack());
+                                    }
+                                }
+                                    catch (Exception ee){}
                                 }
                             }.runTaskLater(Main.getInstance(),60);
                         }
@@ -177,7 +189,8 @@ public class StaffModeEventListener implements Listener {
                 }
             }
         }
-        if (e.getItem().getType().equals(Material.GLASS))
+
+        if (Main.getInstance().specItemMode.contains(p) && !e.getItem().getType().equals(null) && !e.getItem().getType().equals(Material.AIR)&& e.getItem().getType().equals(Material.GLASS))
         {
             e.setCancelled(true);
             if (e.getItem().getItemMeta().getDisplayName().contains("§dSpec")) {
@@ -186,7 +199,7 @@ public class StaffModeEventListener implements Listener {
                 p.getInventory().setItem(8, crea.toItemStack());
             }
         }
-        if (e.getItem().getType().equals(Material.WORKBENCH))
+        if (Main.getInstance().specItemMode.contains(p) && !e.getItem().getType().equals(null) && e.getItem().getType().equals(Material.WORKBENCH))
         {
             e.setCancelled(true);
             if (e.getItem().getItemMeta().getDisplayName().contains("§dCréatif"))
@@ -256,10 +269,7 @@ public class StaffModeEventListener implements Listener {
                             else if( (e.getClickedInventory().getTitle().contains(":"))){
                                 String text;
                                 Bukkit.broadcastMessage(e.getClickedInventory().getTitle());
-                                for (text = e.getClickedInventory().getTitle(); text.contains(":"); text = text.substring(1)){
-                                    Bukkit.broadcastMessage(text);
-                                }
-                                Bukkit.broadcastMessage(text);
+                                for (text = e.getClickedInventory().getTitle(); text.contains(":"); text = text.substring(1)){}
                             }
                             else if (e.getCurrentItem().getItemMeta().getDisplayName().contains("15 minutes"))
                             break;

@@ -16,7 +16,7 @@ public class Spec implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender.hasPermission("dp.modo.spec")) {
+        if (sender.hasPermission("deadpvp.spectator")) {
             if (sender instanceof Player)
             {
                 Player p = (Player) sender;

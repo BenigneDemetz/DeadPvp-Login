@@ -18,7 +18,7 @@ public class Speed implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            if (p.hasPermission("dp.modo.speed")) {
+            if (p.hasPermission("deadpvp.speed")) {
                 if (args.length >= 1) {
                     if (p.isFlying()) {
                         p.setFlySpeed(Float.parseFloat(args[0]) / 10);
@@ -29,7 +29,9 @@ public class Speed implements CommandExecutor {
                     }
                 }
             }
+            else sender.sendMessage("§cTu n'as pas la permission d'utiliser cette commande !");
         }
+        else sender.sendMessage("Tu n'es pas un joueur");
 
 
         return false;

@@ -18,7 +18,7 @@ public class Fly implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (sender instanceof Player) {
             Player p = (Player) sender;
-            if (p.hasPermission("dp.modo.fly")) {
+            if (p.hasPermission("deadpvp.fly") || p.hasPermission("deadpvp.*")) {
                 p.setAllowFlight(!p.getAllowFlight());
                 p.setFlying(p.getAllowFlight());
                 if (p.getAllowFlight()) {
@@ -26,6 +26,7 @@ public class Fly implements CommandExecutor {
                 } else
                     p.sendMessage("Tu peux plus fly");
             }
+            else sender.sendMessage("§cTu n'as pas la permission d'utiliser cette commande !");
         } else sender.sendMessage("Tu dois etre joueur");
 
         return false;

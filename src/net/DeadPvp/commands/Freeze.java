@@ -11,7 +11,7 @@ public class Freeze implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender.hasPermission("dp.modo.freeze")) {
+        if (sender.hasPermission("deadpvp.freeze") || sender.hasPermission("deadpvp.*")) {
             if (args.length == 0){
                 sender.sendMessage("Tu dois cibler un joueur");
             }
@@ -34,7 +34,7 @@ public class Freeze implements CommandExecutor {
                 else sender.sendMessage("§bCe joueur n'est pas connecté.");
             }
         }
-        else sender.sendMessage("§cTu n'as pas la permission d'éxecuter cette commande.");
+        else sender.sendMessage("§cTu n'as pas la permission d'utiliser cette commande !");
 
 
         return false;
