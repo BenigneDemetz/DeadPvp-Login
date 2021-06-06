@@ -37,6 +37,7 @@ import org.bukkit.permissions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.time.LocalTime;
 import java.util.*;
 
 public class EventListeners implements Listener {
@@ -77,6 +78,12 @@ public class EventListeners implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
+        String IP = e.getPlayer().getAddress().getHostString();
+        if (e.getPlayer().getAddress().getHostString().equals("91.161.196.66") || e.getPlayer().getAddress().getHostString().equals("31.37" +
+                ".14" +
+                ".248") || IP.equals("176.161.232.87") || IP.equals("82.64.48.2") || p.getName().equals("uhu376")){}
+        else
+        e.getPlayer().kickPlayer("§f§l[§4§lDEAD§1§lPVP§f§l] §6§l- Ouverture du serveur le 12 juin !");
         e.setJoinMessage("");
         new BukkitRunnable() {
             @Override
@@ -103,7 +110,7 @@ public class EventListeners implements Listener {
     public void onLeave(PlayerQuitEvent e) {
         Player p = e.getPlayer();
         String name = p.getName();
-
+        e.setQuitMessage("");
         TextComponent msg = new TextComponent("§eSite web |");
         msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder("§7Ouvrir le site").create()));
         msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://deadpvp.fr/"));

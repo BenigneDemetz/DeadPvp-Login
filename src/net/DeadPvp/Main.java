@@ -1,6 +1,8 @@
 package net.DeadPvp;
 
 import Crd.Code.Handler;
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteStreams;
 import net.DeadPvp.commands.*;
 import net.DeadPvp.commands.World;
 import net.DeadPvp.utils.*;
@@ -11,10 +13,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.permissions.Permission;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.bukkit.potion.Potion;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.io.ByteArrayInputStream;
 import java.io.Console;
+import java.io.DataInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -23,7 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Main extends JavaPlugin implements Listener {
+public class Main extends JavaPlugin implements Listener /*, PluginMessageListener */{
 
 
     public ArrayList<Player> vanishedPlayers = new ArrayList<Player>();
@@ -163,7 +169,26 @@ public class Main extends JavaPlugin implements Listener {
         super.onDisable();
     }
 
-
-
-
+//
+//    @Override
+//    public void onPluginMessageReceived(String s, Player player, byte[] bytes) {
+//        if (!s.equals("BungeeCord")) {
+//            return;
+//        }
+//        ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+//        String subChannel = in.readUTF();
+//        short len = in.readShort();
+//        if (subChannel.equals("changepassword")) {
+//            byte[] motdepasse = new byte[len];
+//            in.readFully(motdepasse);
+//
+//            DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
+//            try {
+//                String somedata = msgin.readUTF(); // Read the data in the same way you wrote it
+//                short somenumber = msgin.readShort();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }
