@@ -4,6 +4,7 @@ version: 1.0
 authors: [Arnaud013, Benigne]
 main: net.DeadPvp.Main
 description: DPCore is a utility plugin for DeadPVP
+depend: [AuthMe]
 commands:
   freeze:
   vanich:

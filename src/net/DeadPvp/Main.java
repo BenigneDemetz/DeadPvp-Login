@@ -29,7 +29,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Main extends JavaPlugin implements Listener /*, PluginMessageListener */{
+public class Main extends JavaPlugin implements Listener, PluginMessageListener {
 
 
     public ArrayList<Player> vanishedPlayers = new ArrayList<Player>();
@@ -55,9 +55,9 @@ public class Main extends JavaPlugin implements Listener /*, PluginMessageListen
     public void mysqlSetup(){
         host = "localhost";
         port = 3306;
-        database = "minecraft";
+        database = "minecraftrebased";
         username = "root";
-        password = "23012002m";
+        password = "";
 
         try{
 
@@ -95,7 +95,8 @@ public class Main extends JavaPlugin implements Listener /*, PluginMessageListen
         registerEvents();
         registerCmd();
         restartServ();
-        getServer ().getMessenger ().registerOutgoingPluginChannel (this, "BungeeCord"); // ECRIT EXACTEMENT EXACTEMENT SA A LA MAJ PRET SINN SA MARCHE PAS
+        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord"); // ECRIT EXACTEMENT EXACTEMENT SA A LA MAJ PRET
+        // SINN SA MARCHE PAS
 
 
         super.onEnable();
@@ -169,26 +170,26 @@ public class Main extends JavaPlugin implements Listener /*, PluginMessageListen
         super.onDisable();
     }
 
-//
-//    @Override
-//    public void onPluginMessageReceived(String s, Player player, byte[] bytes) {
-//        if (!s.equals("BungeeCord")) {
-//            return;
-//        }
-//        ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
-//        String subChannel = in.readUTF();
-//        short len = in.readShort();
-//        if (subChannel.equals("changepassword")) {
-//            byte[] motdepasse = new byte[len];
-//            in.readFully(motdepasse);
-//
-//            DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(msgbytes));
-//            try {
-//                String somedata = msgin.readUTF(); // Read the data in the same way you wrote it
-//                short somenumber = msgin.readShort();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+
+    @Override
+    public void onPluginMessageReceived(String s, Player player, byte[] bytes) {
+        if (!s.equals("BungeeCord")) {
+            return;
+        }
+        ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
+        String subChannel = in.readUTF();
+        short len = in.readShort();
+        if (subChannel.equals("changepassword")) {
+            byte[] motdepasse = new byte[len];
+            in.readFully(motdepasse);
+
+            DataInputStream msgin = new DataInputStream(new ByteArrayInputStream(bytes));
+            try {
+                String somedata = msgin.readUTF(); // Read the data in the same way you wrote it
+                short somenumber = msgin.readShort();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
